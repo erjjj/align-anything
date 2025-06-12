@@ -16,10 +16,10 @@
 # ==============================================================================
 
 
-MODEL_NAME_OR_PATH="Qwen/Qwen2.5-0.5B-Instruct" # model path
+MODEL_NAME_OR_PATH="./Qwen2.5-0.5B-Instruct" # model path
 
-TRAIN_DATASETS="../assets/text_to_text/preference" # rm dataset path
-TRAIN_TEMPLATE="PKUSafeRLHF" # dataset template
+TRAIN_DATASETS="../../assets/text_to_text/hw" # rm dataset path
+TRAIN_TEMPLATE="HOMEWORK" # dataset template
 TRAIN_SPLIT="train" # split the dataset
 
 OUTPUT_ROOT_DIR=$OUTPUT_ROOT_DIR
@@ -32,10 +32,11 @@ fi
 OUTPUT_DIR="${OUTPUT_ROOT_DIR}/qwen_2_5_rm" # output dir
 
 # For wandb online logging
+# export WANDB_API_KEY="6bfb185b56a3b9fa23a5fd706239d8c25ac9f957"
 export WANDB_API_KEY=""
 
 # Source the setup script
-source ./setup.sh
+source ../setup.sh
 
 # Execute deepspeed command
 deepspeed \
@@ -46,4 +47,4 @@ deepspeed \
      --train_datasets ${TRAIN_DATASETS} \
      --train_split ${TRAIN_SPLIT} \
      --output_dir ${OUTPUT_DIR} \
-     --epochs 1 
+     --epochs 2 

@@ -1,0 +1,20 @@
+[
+  {
+    "prompt": "请解释什么是机器学习？",
+    "response_0": "机器学习是人工智能的一个分支，它使计算机能够在没有明确编程的情况下学习和改进。",
+    "response_1": "机器学习就是让电脑变聪明。",
+    "better_response_id": 0
+  },
+  {
+    "prompt": "如何保持健康的生活方式？",
+    "response_0": "多运动。",
+    "response_1": "保持健康的生活方式包括：规律运动、均衡饮食、充足睡眠、管理压力和定期体检。",
+    "better_response_id": 1
+  },
+  {
+    "prompt": "Python中如何创建列表？",
+    "response_0": "在Python中，可以使用方括号[]创建列表，例如：my_list = [1, 2, 3]或empty_list = []。",
+    "response_1": "用[]。",
+    "better_response_id": 0
+  }
+]

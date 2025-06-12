@@ -241,6 +241,39 @@ class PKUSafeRLHF(BaseFormatter):
             {'role': 'assistant', 'content': response},
         ], {}
 
+@register_template('HOMEWORK')
+class HOMEWORK(BaseFormatter):
+    system_prompt: str = ''
+    split_token = DEFAULT_SPLIT_TOKEN
+    def format_preference_sample(
+        self, raw_sample: dict[str, Any]
+    ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], str]:
+        better_id = int(raw_sample['overall_response'])
+        worse_id = 2 if better_id == 1 else 1
+
+        if better_id not in [1, 2] or worse_id not in [1, 2]:
+            return [], [], {}
+
+        better_response = raw_sample[f'response_{better_id}']
+        worse_response = raw_sample[f'response_{worse_id}']
+        prompt = raw_sample['question']
+
+        better_conversation = [
+            {'role': 'user', 'content': prompt},
+            {'role': 'assistant', 'content': better_response},
+        ]
+
+        worse_conversation = [
+            {'role': 'user', 'content': prompt},
+            {'role': 'assistant', 'content': worse_response},
+        ]
+
+        meta_info = {
+            'better_response': better_response,
+            'worse_response': worse_response,
+        }
+
+        return better_conversation, worse_conversation, meta_info
 
 @register_template('Aligner')
 class Aligner(BaseFormatter):

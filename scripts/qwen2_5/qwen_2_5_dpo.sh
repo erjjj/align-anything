@@ -16,11 +16,16 @@
 # ==============================================================================
 
 
-MODEL_NAME_OR_PATH="Qwen/Qwen2.5-0.5B-Instruct" # model path
+MODEL_NAME_OR_PATH="Qwen2.5-0.5B-Instruct" # model path
 
-TRAIN_DATASETS="../assets/text_to_text/preference" # dpo dataset path
-TRAIN_TEMPLATE="PKUSafeRLHF" # dataset template
+TRAIN_DATASETS="../../assets/text_to_text/hw" # rm dataset path
+TRAIN_TEMPLATE="HOMEWORK" # dataset template
 TRAIN_SPLIT="train" # split the dataset
+
+EVAL_DATASETS="../../assets/text_to_text/hw" # rm dataset path
+EVAL_TEMPLATE="HOMEWORK" # dataset template
+EVAL_NAME="eval"
+EVAL_SPLIT="validation" # split the dataset
 
 OUTPUT_ROOT_DIR=$OUTPUT_ROOT_DIR
 
@@ -29,13 +34,14 @@ if [ -z "$OUTPUT_ROOT_DIR" ]; then
     OUTPUT_ROOT_DIR="../outputs"
 fi
 
-OUTPUT_DIR="${OUTPUT_ROOT_DIR}/qwen_2_5_dpo" # output dir
+#OUTPUT_DIR="${OUTPUT_ROOT_DIR}/qwen_2_5_dpo_727" # output dir
+OUTPUT_DIR="${OUTPUT_ROOT_DIR}/qwen_2_5_dpo_728" # output dir
 
 # For wandb online logging
 export WANDB_API_KEY=""
 
 # Source the setup script
-source ./setup.sh
+source ../setup.sh
 
 # Execute deepspeed command
 deepspeed \
@@ -45,5 +51,9 @@ deepspeed \
      --train_template ${TRAIN_TEMPLATE} \
      --train_datasets ${TRAIN_DATASETS} \
      --train_split ${TRAIN_SPLIT} \
+     --eval_datasets ${EVAL_DATASETS} \
+     --eval_template ${EVAL_TEMPLATE} \
+     --eval_name ${EVAL_NAME} \
+     --eval_split ${EVAL_SPLIT} \
      --output_dir ${OUTPUT_DIR} \
      --epochs 1 
